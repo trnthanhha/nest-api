@@ -33,6 +33,7 @@ jobs:
             cd ~/workspace/nest-api
             ${{ secrets.GHP }}
             npm install
+            npm run build
             pm2 restart nest-api
 
       - name: On Failure
