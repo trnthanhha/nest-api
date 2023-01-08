@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { InfinityPagination } from 'src/utils/infinity-pagination';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
 import { Repository } from 'typeorm';
@@ -20,11 +21,14 @@ export class UsersService {
     );
   }
 
-  findManyWithPagination(paginationOptions: IPaginationOptions) {
-    return this.usersRepository.find({
+  async findManyWithPagination(
+    paginationOptions: IPaginationOptions,
+  ): Promise<InfinityPagination<User>> {
+    const [data, total] = await this.usersRepository.findAndCount({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
     });
+    return new InfinityPagination<User>(data, { ...paginationOptions, total });
   }
 
   findOne(fields: EntityCondition<User>) {

@@ -22,7 +22,8 @@ import { Roles } from 'src/roles/roles.decorator';
 import { RoleEnum } from 'src/roles/roles.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/roles/roles.guard';
-import { infinityPagination } from 'src/utils/infinity-pagination';
+import { InfinityPagination } from 'src/utils/infinity-pagination';
+import { User } from './entities/user.entity';
 
 @ApiBearerAuth()
 @Roles(RoleEnum.admin)
@@ -52,18 +53,15 @@ export class UsersController {
   async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-  ) {
+  ): Promise<InfinityPagination<User>> {
     if (limit > 50) {
       limit = 50;
     }
 
-    return infinityPagination(
-      await this.usersService.findManyWithPagination({
-        page,
-        limit,
-      }),
-      { page, limit },
-    );
+    return await this.usersService.findManyWithPagination({
+      page,
+      limit,
+    });
   }
 
   @SerializeOptions({
