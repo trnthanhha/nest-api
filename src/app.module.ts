@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { FilesModule } from './files/files.module';
-import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { FilesModule } from './modules/files/files.module';
+import { AuthModule } from './modules/auth/auth.module';
 import databaseConfig from './config/database.config';
 import authConfig from './config/auth.config';
 import appConfig from './config/app.config';
@@ -15,18 +15,18 @@ import * as path from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthAppleModule } from './auth-apple/auth-apple.module';
-import { AuthFacebookModule } from './auth-facebook/auth-facebook.module';
-import { AuthGoogleModule } from './auth-google/auth-google.module';
-import { AuthTwitterModule } from './auth-twitter/auth-twitter.module';
+import { AuthAppleModule } from './modules/auth-apple/auth-apple.module';
+import { AuthFacebookModule } from './modules/auth-facebook/auth-facebook.module';
+import { AuthGoogleModule } from './modules/auth-google/auth-google.module';
+import { AuthTwitterModule } from './modules/auth-twitter/auth-twitter.module';
 import { I18nModule } from 'nestjs-i18n/dist/i18n.module';
 import { HeaderResolver } from 'nestjs-i18n';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
-import { MailConfigService } from './mail/mail-config.service';
-import { ForgotModule } from './forgot/forgot.module';
-import { MailModule } from './mail/mail.module';
-import { HomeModule } from './home/home.module';
+import { MailConfigService } from './modules/mail/mail-config.service';
+import { MailModule } from './modules/mail/mail.module';
+import { HomeModule } from './modules/home/home.module';
 import { DataSource } from 'typeorm';
+import { ForgotModule } from './modules/forgot/forgot.module';
 
 @Module({
   imports: [
